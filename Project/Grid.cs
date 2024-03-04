@@ -4,16 +4,16 @@ namespace GameOfLife
     {
         public int rows { get; set; }
         public int columns { get; set; }
-        public List<List<bool>> grid { get; set; }
+        public List<List<Cell>> grid { get; set; }
         public void Print()
         {
-            foreach (List<bool> row in grid)
+            foreach (List<Cell> row in grid)
             {
-                foreach (bool val in row)
+                foreach (Cell cell in row)
                 {
-                    if (val)
+                    if (cell.aliveState)
                     {
-                        Console.Write("0");
+                        Console.Write("O");
                     }
                     else
                     {
@@ -56,12 +56,13 @@ namespace GameOfLife
             Random rnd = new();
             for (int i = 1; i <= yAxis; i++)
             {
-                List<bool> thisCol = [];
+                List<Cell> thisCol = [];
                 for (int j = 1; j <= xAxis; j++)
                 {
                     int ind = rnd.Next(0, 2);
                     bool val = choices[ind];
-                    thisCol.Add(val);
+                    Cell newCell = new(val);
+                    thisCol.Add(newCell);
                 }
                 grid.Add(thisCol);
             }
