@@ -37,24 +37,25 @@ namespace GameOfLife
             Console.WriteLine("Welcome to the Game of Life!\n");
             int choice = RangeInput("Choose a grid setup:\n1 - New randomized grid\n2 - Load grid from a file", 0, 2);
             List<List<bool>> activeGrid;
-            activeGrid = GridReader.Read();
-            // switch (choice)
-            // {
-            //     case 1:
-            //     {
-            //         //Generate random grid
-            //         break;
-            //     }
-            //     case 2:
-            //     {
-            //         break;
-            //     }
-            //     default:
-            //     {
-            //         Console.WriteLine("Error!");
-            //         ;
-            //     }
-            // }
+            switch (choice)
+            {
+                case 1:
+                {
+                    activeGrid = GridGenerator.Generate();
+                    break;
+                }
+                case 2:
+                {
+                    activeGrid = GridReader.Read();
+                    break;
+                }
+                default:
+                {
+                    Console.WriteLine("Error!");
+                    activeGrid = [[true]];
+                    break;
+                }
+            }
             Console.WriteLine("\nCurrent grid:");
             GridOutput.Print(activeGrid);
         }
