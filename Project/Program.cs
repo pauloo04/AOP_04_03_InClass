@@ -3,12 +3,6 @@ using System.Text.Json;
 
 namespace GameOfLife
 {
-    public class Grid
-    {
-        public int rows { get; set; }
-        public int columns { get; set; }
-        public List<List<bool>> grid { get; set; }
-    }
     public class Program
     {
         public static int RangeInput(string prompt, int start, int end)
@@ -27,7 +21,7 @@ namespace GameOfLife
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Incorrect input!");
+                    Console.WriteLine($"Incorrect input! ({e.Message})");
                 }
             }
         }
@@ -36,28 +30,31 @@ namespace GameOfLife
         {
             Console.WriteLine("Welcome to the Game of Life!\n");
             int choice = RangeInput("Choose a grid setup:\n1 - New randomized grid\n2 - Load grid from a file", 0, 2);
-            List<List<bool>> activeGrid;
+            Grid activeGrid = new();
             switch (choice)
             {
                 case 1:
                 {
-                    activeGrid = GridGenerator.Generate();
+                    activeGrid.Generate();
                     break;
                 }
                 case 2:
                 {
-                    activeGrid = GridReader.Read();
+                    Console.WriteLine("Enter path to the grid file: ");
+                    string path = Console.ReadLine();
+                    //Check if path exists
+                    Storage gridFile = new(path);
+                    gridFile.LoadGrid(ref activeGrid);
                     break;
                 }
                 default:
                 {
                     Console.WriteLine("Error!");
-                    activeGrid = [[true]];
                     break;
                 }
             }
             Console.WriteLine("\nCurrent grid:");
-            GridOutput.Print(activeGrid);
+            activeGrid.Print();
         }
     }
 }
