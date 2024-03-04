@@ -55,14 +55,8 @@ namespace GameOfLife
             //         ;
             //     }
             // }
-            foreach(var row in activeGrid)
-            {
-                foreach(var x in row)
-                {
-                    Console.Write(x);
-                }
-                Console.WriteLine();
-            }
+            Console.WriteLine("\nCurrent grid:");
+            GridOutput.Print(activeGrid);
         }
     }
 }
