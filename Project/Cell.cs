@@ -11,5 +11,18 @@ namespace GameOfLife
             aliveState = s;
             neighbors = [];
         }
+        public void ChangeState()
+        {
+            aliveState = !aliveState;
+        }
+        public int CountLiveNeighbors()
+        {
+            int count = 0;
+            foreach (Cell neighbor in neighbors)
+            {
+                count += Convert.ToInt32(neighbor.aliveState);
+            }
+            return count;
+        }
     }
 }

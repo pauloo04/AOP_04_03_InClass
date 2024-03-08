@@ -56,15 +56,15 @@ namespace GameOfLife
             Random rnd = new();
             for (int i = 1; i <= yAxis; i++)
             {
-                List<Cell> thisCol = [];
+                List<Cell> thisRow = [];
                 for (int j = 1; j <= xAxis; j++)
                 {
                     int ind = rnd.Next(0, 2);
                     bool val = choices[ind];
                     Cell newCell = new(val);
-                    thisCol.Add(newCell);
+                    thisRow.Add(newCell);
                 }
-                grid.Add(thisCol);
+                grid.Add(thisRow);
             }
         }
     }
