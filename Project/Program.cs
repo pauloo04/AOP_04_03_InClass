@@ -85,6 +85,7 @@ namespace GameOfLife
             activeGrid.Print();
             
             bool running = true;
+            int generation = 0;
             while(running)
             {
                 Console.WriteLine("\n\nWhat would you like to do?");
@@ -93,6 +94,10 @@ namespace GameOfLife
                 {
                     case 'N':
                     {
+                        AutomationSimulator.NextGeneration(activeGrid);
+                        generation += 1;
+                        Console.WriteLine($"\nCurrent grid (Generation {generation}):");
+                        activeGrid.Print();
                         break;
                     }
                     case 'S':

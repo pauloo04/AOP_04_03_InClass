@@ -41,6 +41,7 @@ namespace GameOfLife
             string jsonString = File.ReadAllText(path);
             TempGrid tempGrid = JsonSerializer.Deserialize<TempGrid>(jsonString);
             grid = tempGrid.ToGrid();
+            grid.AddNeighbors();
         }
         public void SaveGrid(Grid grid)
         {
