@@ -7,5 +7,6 @@ namespace GameOfLife
         public List<List<Cell>> grid { get; set; }
         public void Print();
         public void Generate();
+        public void AddNeighbors();
     }
 }
