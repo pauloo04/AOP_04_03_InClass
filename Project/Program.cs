@@ -1,7 +1,4 @@
-﻿using System.Data;
-using System.Text.Json;
-
-namespace GameOfLife
+﻿namespace GameOfLife
 {
     public class Program
     {
@@ -68,11 +65,17 @@ namespace GameOfLife
                 }
                 case 2:
                 {
-                    Console.WriteLine("Enter path to the grid file: ");
-                    string path = Console.ReadLine();
-                    //Check if path exists
-                    JsonStorage gridFile = new(path);
-                    gridFile.LoadGrid(ref activeGrid);
+                    Console.WriteLine("Enter name of the grid file: ");
+                    string fileName = Console.ReadLine();
+                    if (File.Exists($"Grids/{fileName}.json"))
+                    {
+                        JsonStorage gridFile = new($"Grids/{fileName}.json");
+                        gridFile.LoadGrid(ref activeGrid);
+                    }
+                    else {
+                        Console.WriteLine("ERROR! File does not exist!");
+                        Environment.Exit(0);
+                    }
                     break;
                 }
                 default:
@@ -102,6 +105,16 @@ namespace GameOfLife
                     }
                     case 'S':
                     {
+                        Console.WriteLine("Enter name of the grid file: ");
+                        string fileName = Console.ReadLine();
+                        if (!File.Exists($"Grids/{fileName}.json"))
+                        {
+                            JsonStorage gridFile = new($"Grids/{fileName}.json");
+                            gridFile.SaveGrid(activeGrid);
+                        }
+                        else {
+                            Console.WriteLine("Error! File with such name already exists! Try again!");
+                        }
                         break;
                     }
                     case 'X':

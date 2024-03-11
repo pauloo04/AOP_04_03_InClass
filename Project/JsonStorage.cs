@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Xml;
 
 namespace GameOfLife
 {
@@ -36,6 +37,26 @@ namespace GameOfLife
         {
             path = p;
         }
+        public TempGrid ToTempGrid(Grid grid)
+        {
+            TempGrid newTempGrid = new()
+            {
+                rows = grid.rows,
+                columns = grid.columns
+            };
+            List<List<bool>> newGridBools = [];
+            foreach(List<Cell> row in grid.grid)
+            {
+                List<bool> newRow = [];
+                foreach(Cell val in row)
+                {
+                    newRow.Add(val.aliveState);
+                }
+                newGridBools.Add(newRow);
+            }
+            newTempGrid.grid = newGridBools;
+            return newTempGrid;
+        }
         public void LoadGrid(ref Grid grid)
         {
             string jsonString = File.ReadAllText(path);
@@ -45,7 +66,12 @@ namespace GameOfLife
         }
         public void SaveGrid(Grid grid)
         {
-            
+            TempGrid tempGrid = ToTempGrid(grid);
+            string jsonString = JsonSerializer.Serialize(tempGrid, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+            File.WriteAllText(path, jsonString);
         }
     }
 }
